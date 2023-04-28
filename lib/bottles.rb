@@ -16,10 +16,6 @@ class Bottles
     end
   end
 
-  def initialize
-  end
-
-
   def bottles_left(n)
     wall = Wall.new(n)
     wall.contents
