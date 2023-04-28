@@ -19,14 +19,20 @@ class Bottles
       end
     end
 
+    def one_beer
+      (@bottle_count == 1) ? "it" : "one"
+    end
+
     def next_action
-      pronoun = (@bottle_count == 1) ? "it" : "one"
+      # code smell: this method is doing more than its name
+      # suggests. It's priting the next action _and_ the new
+      # state of the wall after tha action has been applied
       remaining = "#{self.for_next_verse.contents} of beer on the wall."
 
       if @bottle_count.zero?
         ["Go to the store and buy some more", remaining].join(", ")
       else
-        ["Take #{pronoun} down and pass it around", remaining].join(", ")
+        ["Take #{one_beer} down and pass it around", remaining].join(", ")
       end
     end
   end
