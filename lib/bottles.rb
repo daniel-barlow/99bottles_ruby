@@ -5,7 +5,7 @@ class Bottles
     end
 
     def for_next_verse
-      self.class.new(@bottle_count - 1)
+      self.class.new(@bottle_count.zero? ? 99 :  @bottle_count - 1)
     end
 
     def contents
@@ -21,10 +21,12 @@ class Bottles
 
     def next_action
       pronoun = (@bottle_count == 1) ? "it" : "one"
+      remaining = "#{self.for_next_verse.contents} of beer on the wall."
+
       if @bottle_count.zero?
-        "Go to the store and buy some more, 99 bottles of beer on the wall."
+        ["Go to the store and buy some more", remaining].join(", ")
       else
-        "Take #{pronoun} down and pass it around, #{self.for_next_verse.contents} of beer on the wall."
+        ["Take #{pronoun} down and pass it around", remaining].join(", ")
       end
     end
   end
