@@ -1,16 +1,28 @@
 class Bottles
+  class Wall
+    def initialize(bottle_count)
+      @bottle_count = bottle_count
+    end
+
+    def contents
+      case @bottle_count
+      when 1
+        "1 bottle"
+      when 0
+        "no more bottles"
+      else
+        "#{@bottle_count} bottles"
+      end
+    end
+  end
+
   def initialize
   end
 
+
   def bottles_left(n)
-    case n
-    when 1
-      "1 bottle"
-    when 0
-      "no more bottles"
-    else
-      "#{n} bottles"
-    end
+    wall = Wall.new(n)
+    wall.contents
   end
 
   def action(n)
