@@ -4,6 +4,10 @@ class Bottles
       @bottle_count = bottle_count
     end
 
+    def for_next_verse
+      self.class.new(@bottle_count - 1)
+    end
+
     def contents
       case @bottle_count
       when 1
@@ -14,22 +18,21 @@ class Bottles
         "#{@bottle_count} bottles"
       end
     end
-  end
 
-  def action(n)
-    wall = Wall.new(n-1)
-    pronoun = (n == 1) ? "it" : "one"
-    if n.zero?
-      "Go to the store and buy some more, 99 bottles of beer on the wall."
-    else
-      "Take #{pronoun} down and pass it around, #{wall.contents} of beer on the wall."
+    def next_action
+      pronoun = (@bottle_count == 1) ? "it" : "one"
+      if @bottle_count.zero?
+        "Go to the store and buy some more, 99 bottles of beer on the wall."
+      else
+        "Take #{pronoun} down and pass it around, #{self.for_next_verse.contents} of beer on the wall."
+      end
     end
   end
 
   def verse(n)
     wall = Wall.new(n)
     ["#{(wall.contents).capitalize} of beer on the wall, #{wall.contents} of beer.",
-     action(n),
+     wall.next_action,
      ""].join("\n")
   end
 
