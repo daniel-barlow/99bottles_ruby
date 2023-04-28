@@ -16,22 +16,19 @@ class Bottles
     end
   end
 
-  def bottles_left(n)
-    wall = Wall.new(n)
-    wall.contents
-  end
-
   def action(n)
+    wall = Wall.new(n-1)
     pronoun = (n == 1) ? "it" : "one"
     if n.zero?
       "Go to the store and buy some more, 99 bottles of beer on the wall."
     else
-      "Take #{pronoun} down and pass it around, #{bottles_left (n-1)} of beer on the wall."
+      "Take #{pronoun} down and pass it around, #{wall.contents} of beer on the wall."
     end
   end
 
   def verse(n)
-    ["#{(bottles_left n).capitalize} of beer on the wall, #{bottles_left n} of beer.",
+    wall = Wall.new(n)
+    ["#{(wall.contents).capitalize} of beer on the wall, #{wall.contents} of beer.",
      action(n),
      ""].join("\n")
   end
